@@ -9,7 +9,7 @@ development:
 
 test:
   <<: *default
-  database: atsmile_api_test
+  url: <%= ENV.fetch("TEST_DATABASE_URL", "postgresql://localhost/atsmile_api_test") %>
 
 production:
   primary: &primary_production
