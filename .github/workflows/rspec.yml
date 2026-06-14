@@ -1,0 +1,28 @@
+name: RSpec
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build images
+        run: docker compose build
+
+      - name: Start database
+        run: docker compose up -d db
+
+      - name: Wait for database
+        run: |
+          until docker compose exec -T db pg_isready -U postgres; do
+            sleep 1
+          done
+
+      - name: Setup test database
+        run: docker compose run --rm -e RAILS_ENV=test api bin/rails db:create db:migrate
+
+      - name: Run RSpec
+        run: docker compose run --rm -e RAILS_ENV=test api bundle exec rspec
