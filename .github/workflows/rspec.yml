@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build images
-        run: docker compose build
+        run: docker compose build db backend
 
       - name: Start database
         run: docker compose up -d db
@@ -22,7 +22,7 @@ jobs:
           done
 
       - name: Setup test database
-        run: docker compose run --rm -e RAILS_ENV=test api bin/rails db:create db:migrate
+        run: docker compose run --rm -e RAILS_ENV=test backend bin/rails db:create db:migrate
 
       - name: Run RSpec
-        run: docker compose run --rm -e RAILS_ENV=test api bundle exec rspec
+        run: docker compose run --rm -e RAILS_ENV=test backend bundle exec rspec
