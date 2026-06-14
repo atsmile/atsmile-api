@@ -4,10 +4,10 @@ module Api
       def index
         skill_groups = SkillGroup.includes(:skills).order(:position)
         render json: skill_groups.as_json(
-          only: [:label],
+          only: [ :label ],
           include: {
             skills: {
-              only: [:name, :level]
+              only: [ :name, :level ]
             }
           }
         )

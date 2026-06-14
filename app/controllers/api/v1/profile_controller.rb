@@ -3,7 +3,7 @@ module Api
     class ProfileController < ApplicationController
       def show
         profile = Profile.first
-        render json: profile.as_json(except: [:id, :created_at, :updated_at])
+        render json: profile.as_json(except: [ :id, :created_at, :updated_at ])
       end
     end
   end

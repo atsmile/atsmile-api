@@ -4,7 +4,7 @@ module Api
       def index
         works = Work.includes(:work_tags).order(:position)
         render json: works.map { |work|
-          json = work.as_json(except: [:id, :created_at, :updated_at, :position, :basic_auth_user, :basic_auth_password])
+          json = work.as_json(except: [ :id, :created_at, :updated_at, :position, :basic_auth_user, :basic_auth_password ])
           json["id"] = work.slug
           json.delete("slug")
           json["tags"] = work.work_tags.map(&:name)
