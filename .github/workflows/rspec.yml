@@ -25,4 +25,4 @@ jobs:
         run: docker compose run --rm -e RAILS_ENV=test api bin/rails db:create db:migrate
 
       - name: Run RSpec
-        run: docker compose run --rm api bundle exec rspec
+        run: docker compose run --rm -e RAILS_ENV=test api bundle exec rspec
